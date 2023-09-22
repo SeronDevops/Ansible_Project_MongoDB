@@ -2,9 +2,9 @@
 - name: Copy Flask Application Files
   copy:
     src: "{{ playbook_dir }}/roles/application/files"
-    dest: "/opt/{{ app_name }}"
-    owner: "{{ app_owner }}"
-    group: "{{ app_group }}"
+    dest: "/opt/{{ Seron_application }}"
+    owner: "{{ Seron }}"
+    group: "{{ Seron }}"
   become: yes
 
 - name: Install Python 3 and pip
@@ -24,11 +24,11 @@
 - name: Configure Flask Application
   template:
     src: application_config.j2
-    dest: "/opt/{{ app_name }}/app.py"
+    dest: "/opt/{{ Seron_application}}/app.py"
   become: yes
 
 - name: Start the Flask Application
-  command: "python3 /opt/{{ app_name }}/app.py"
+  command: "python3 /opt/{{ Seron_application }}/app.py"
   async: 300
   poll: 0
   become: yes

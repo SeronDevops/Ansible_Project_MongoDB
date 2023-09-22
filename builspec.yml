@@ -10,17 +10,23 @@ phases:
   pre_build:
     commands:
       - ansible-galaxy install -r requirements.yml
-      - ansible-playbook -i inventories/production playbooks/pre_deploy.yml
+      - ansible-playbook -i inventories/playbooks/pre_deploy.yml
       # You can include any pre-deployment tasks here
 
   build:
     commands:
-      # Run the deployment playbook
-      - ansible-playbook -i inventories/production playbooks/deploy_app.yml
+      # Run the deployment playbook with SSH tunneling
+      - ssh -L 27017:10.0.134.52:27017 -L 27018:10.0.184.44:27017 -L 27019:10.0.14.124:27017 -L 27020:10.0.184.126:27017 -i /path/to/your/ssh/key.pem -N -f ubuntu@10.0.13.240
+
+      # Ensure the SSH tunnel is running
+      - sleep 5  # Wait for the tunnel to establish (adjust as needed)
+
+      # Now you can run Ansible with the tunnels in place
+      - ansible-playbook -i inventories/playbooks/deploy_app.yml
 
   post_build:
     commands:
-      - ansible-playbook -i inventories/production playbooks/post_deploy.yml
+      - ansible-playbook -i inventories/playbooks/post_deploy.yml
       # You can include any post-deployment tasks here
 
 artifacts:
