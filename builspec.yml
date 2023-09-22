@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - pip install ansible
+
+  pre_build:
+    commands:
+      - ansible-galaxy install -r requirements.yml
+      - ansible-playbook -i inventories/production playbooks/pre_deploy.yml
+      # You can include any pre-deployment tasks here
+
+  build:
+    commands:
+      # Run the deployment playbook
+      - ansible-playbook -i inventories/production playbooks/deploy_app.yml
+
+  post_build:
+    commands:
+      - ansible-playbook -i inventories/production playbooks/post_deploy.yml
+      # You can include any post-deployment tasks here
+
+artifacts:
+  files:
+    - /path/to/artifact1
+    - /path/to/artifact2
+    # Include additional artifacts as needed

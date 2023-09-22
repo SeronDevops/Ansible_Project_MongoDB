@@ -1,0 +1,6 @@
+---
+app_name: "your_application"
+app_owner: "your_app_user"
+app_group: "your_app_group"
+app_domain: "your_domain.com"
+app_port: 8080

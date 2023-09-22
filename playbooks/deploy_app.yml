@@ -1,0 +1,12 @@
+---
+- name: Deploy Nginx, Application, and MongoDB
+  hosts: app_servers
+  become: yes
+  vars:
+    app_name: "your_application"
+    app_owner: "your_app_user"
+    app_group: "your_app_group"
+  roles:
+    - role: nginx
+    - role: application
+    - role: mongodb

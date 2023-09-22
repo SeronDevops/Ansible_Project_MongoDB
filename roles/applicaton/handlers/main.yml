@@ -1,0 +1,7 @@
+---
+- name: Restart Flask Application
+  command: "systemctl restart flask_app"
+  async: 300
+  poll: 0
+  become: yes
+  ignore_errors: yes  # Consider using a more robust method to manage the application as a service.

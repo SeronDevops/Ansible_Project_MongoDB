@@ -1,0 +1,4 @@
+---
+mongodb_version: "4.4"
+mongodb_data_dir: "/var/lib/mongodb"
+mongodb_log_dir: "/var/log/mongodb"

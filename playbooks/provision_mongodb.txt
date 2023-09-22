@@ -1,0 +1,6 @@
+---
+- name: Provision MongoDB Cluster
+  hosts: mongo_servers
+  become: yes
+  roles:
+    - mongodb
