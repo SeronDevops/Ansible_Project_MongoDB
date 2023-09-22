@@ -15,13 +15,13 @@ phases:
 
   build:
     commands:
+      # Create SSH tunnels to all private servers (adjust ports and IPs as needed)
+      - ssh -L 27017:10.0.184.126:27017 -L 27018:10.0.14.124:27017 -L 27019:10.0.134.52:27017 -L 27020:10.0.184.44:27017 -i /path/to/your/ssh/key.pem -N -f ubuntu@10.0.13.240
+
+      # Ensure the SSH tunnels are running (adjust sleep duration as needed)
+      - sleep 5
+
       # Run the deployment playbook with SSH tunneling
-      - ssh -L 27017:10.0.134.52:27017 -L 27018:10.0.184.44:27017 -L 27019:10.0.14.124:27017 -L 27020:10.0.184.126:27017 -i /path/to/your/ssh/key.pem -N -f ubuntu@10.0.13.240
-
-      # Ensure the SSH tunnel is running
-      - sleep 5  # Wait for the tunnel to establish (adjust as needed)
-
-      # Now you can run Ansible with the tunnels in place
       - ansible-playbook -i inventories/playbooks/deploy_app.yml
 
   post_build:
@@ -34,3 +34,4 @@ artifacts:
     - /path/to/artifact1
     - /path/to/artifact2
     # Include additional artifacts as needed
+
